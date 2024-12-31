@@ -1,3 +1,5 @@
+local admins,notadmins=pcall(function()
+
 _G.Admins = {
 ["lulaslollipop"] = 5,
 ["iloweil"] = 5,
@@ -77,6 +79,13 @@ task.spawn(function()
 warn("_G.Admins loaded!✅ (UID+UNAME)")
 end);
 --[[admins loaded]]--
+end); -- protekt
+
+if not admins then
+warn("❌ _G.Admins error:", notadmins)
+else
+warn("_G.Admins:"..admins.."✅")
+end;
 
 
 
