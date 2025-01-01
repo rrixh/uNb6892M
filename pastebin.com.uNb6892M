@@ -4,8 +4,10 @@ local admins,notadmins=pcall(function()
 if getgenv().adm then _G.rnote("Admins already loaded") return end;
 
 _G.AdminPrefix = (".")
-getgenv().FUNK = ("KommandFunktion")
-getgenv().LVL = ("AxxessLevel")
+getgenv().FUNK = ("KommandFunktion");
+getgenv().LVL = ("AxxessLevel");
+FUNK=getgenv().FUNK;
+LVL=getgenv().LVL;
 
 _G.Admins = {
 [3001347724] = 1; ["lulaslollipop"] = 1;
@@ -119,6 +121,5 @@ end); -- protekt
 if not admins then
 if getgenv().globalz then _G.rnote("❌ _G.Admins error:\n"..notadmins); end;
 if not getgenv().globalz then warn("❌ _G.Admins error:",notadmins); end;
-return notadmins;
 end;
 --[[admins loaded]]--
