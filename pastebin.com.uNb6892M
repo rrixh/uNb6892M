@@ -117,11 +117,6 @@ warn("_G.Admins loaded!✅")
 getgenv().adm = true;
 
 end); -- protekt
-
-if not admins then
-if getgenv().globalz then _G.rnote("❌ _G.Admins error:\n"..notadmins); end;
-if not getgenv().globalz then warn("❌ _G.Admins error:",notadmins); end;
-end;
 --[[admins loaded]]--
 
 spawn(function()
