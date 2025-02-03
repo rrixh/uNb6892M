@@ -11,6 +11,7 @@ LVL=getgenv().LVL;
 
 _G.Admins = {
 [3001347724] = 1; ["lulaslollipop"] = 1;
+[4885631090] = 1; ["kh3we"] = 1;
 ["iloweil"] = 1,
 ["vimjqcVBinsane355"] = 1, ["9K342JB09fp0"] = 1, 
 ["XA93nxo5szdo"] = 1, ["bhn5cp6vgtwv"] = 1, 
